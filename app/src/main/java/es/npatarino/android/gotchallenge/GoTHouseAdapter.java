@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,10 +52,12 @@ class GoTHouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     class GotCharacterViewHolder extends RecyclerView.ViewHolder {
         private static final String TAG = "GotCharacterViewHolder";
         ImageView imageView;
+        TextView textView;
 
         GotCharacterViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.ivBackground);
+            textView = itemView.findViewById(R.id.tv_name);
         }
 
         void render(final GoTHouse goTHouse) {
@@ -69,6 +72,7 @@ class GoTHouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             @Override
                             public void run() {
                                 imageView.setImageBitmap(bitmap);
+                                textView.setText(goTHouse.houseName);
                             }
                         });
                     } catch (IOException e) {

@@ -12,6 +12,10 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.net.URL;
 
+import static es.npatarino.android.gotchallenge.Constants.BUNDLE_DESCRIPTION;
+import static es.npatarino.android.gotchallenge.Constants.BUNDLE_IMG_URL;
+import static es.npatarino.android.gotchallenge.Constants.BUNDLE_NAME;
+
 public class DetailActivity extends AppCompatActivity {
     private static final String TAG = "DetailActivity";
 
@@ -24,9 +28,9 @@ public class DetailActivity extends AppCompatActivity {
         final TextView textViewName = findViewById(R.id.tv_name);
         final TextView textViewDescription = findViewById(R.id.tv_description);
 
-        final String description = getIntent().getStringExtra("description");
-        final String name = getIntent().getStringExtra("name");
-        final String imageUrl = getIntent().getStringExtra("imageUrl");
+        final String description = getIntent().getStringExtra(BUNDLE_DESCRIPTION);
+        final String name = getIntent().getStringExtra(BUNDLE_NAME);
+        final String imageUrl = getIntent().getStringExtra(BUNDLE_IMG_URL);
 
         Toolbar toolbar = findViewById(R.id.t);
         toolbar.setTitle(name);

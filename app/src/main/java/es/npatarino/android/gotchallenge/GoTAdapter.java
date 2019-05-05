@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static es.npatarino.android.gotchallenge.Constants.BUNDLE_DESCRIPTION;
+import static es.npatarino.android.gotchallenge.Constants.BUNDLE_IMG_URL;
+import static es.npatarino.android.gotchallenge.Constants.BUNDLE_NAME;
+
 class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<GoTCharacter> goTCharacters;
@@ -47,9 +51,9 @@ class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void onClick(final View v) {
                 Intent intent = new Intent(((GotCharacterViewHolder) holder).itemView.getContext(), DetailActivity.class);
-                intent.putExtra("description", goTCharacters.get(position).description);
-                intent.putExtra("name", goTCharacters.get(position).name);
-                intent.putExtra("imageUrl", goTCharacters.get(position).imageUrl);
+                intent.putExtra(BUNDLE_DESCRIPTION, goTCharacters.get(position).description);
+                intent.putExtra(BUNDLE_NAME, goTCharacters.get(position).name);
+                intent.putExtra(BUNDLE_IMG_URL, goTCharacters.get(position).imageUrl);
                 ((GotCharacterViewHolder) holder).itemView.getContext().startActivity(intent);
             }
         });

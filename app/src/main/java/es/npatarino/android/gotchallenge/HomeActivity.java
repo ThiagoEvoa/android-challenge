@@ -21,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setSectionsPagerAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+        setSectionsPagerAdapter(new SectionsPagerAdapter(this.getBaseContext(), getSupportFragmentManager()));
 
         setViewPager((ViewPager) findViewById(R.id.container));
         getViewPager().setAdapter(getSectionsPagerAdapter());

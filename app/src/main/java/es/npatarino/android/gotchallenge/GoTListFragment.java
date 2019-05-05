@@ -35,7 +35,7 @@ public class GoTListFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-        final ContentLoadingProgressBar pb = rootView.findViewById(R.id.pb);
+        final ContentLoadingProgressBar progressBar = rootView.findViewById(R.id.pb);
         RecyclerView recyclerView = rootView.findViewById(R.id.rv);
 
         final GoTAdapter goTAdapter = new GoTAdapter(getActivity());
@@ -47,11 +47,9 @@ public class GoTListFragment extends Fragment {
 
             @Override
             public void run() {
-                String url = URL_CHARACTER;
-
                 URL obj;
                 try {
-                    obj = new URL(url);
+                    obj = new URL(URL_CHARACTER);
                     HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
                     connection.setRequestMethod("GET");
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -70,7 +68,7 @@ public class GoTListFragment extends Fragment {
                         public void run() {
                             goTAdapter.addAll(characters);
                             goTAdapter.notifyDataSetChanged();
-                            pb.hide();
+                            progressBar.hide();
                         }
                     });
                 } catch (IOException e) {

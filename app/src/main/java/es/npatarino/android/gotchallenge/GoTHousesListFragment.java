@@ -45,11 +45,9 @@ public class GoTHousesListFragment  extends Fragment {
 
             @Override
             public void run() {
-                String url = URL_CHARACTER;
-
                 URL obj;
                 try {
-                    obj = new URL(url);
+                    obj = new URL(URL_CHARACTER);
                     HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
                     connection.setRequestMethod("GET");
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
