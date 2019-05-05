@@ -22,6 +22,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static es.npatarino.android.gotchallenge.Constants.URL_CHARACTER;
+
 
 public class GoTListFragment extends Fragment {
 
@@ -45,7 +47,7 @@ public class GoTListFragment extends Fragment {
 
             @Override
             public void run() {
-                String url = "https://project-8424324399725905479.firebaseio.com/characters.json?print=pretty";
+                String url = URL_CHARACTER;
 
                 URL obj;
                 try {
