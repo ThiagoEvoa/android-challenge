@@ -22,24 +22,22 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+public class GoTHousesListFragment  extends Fragment {
+    private static final String TAG = "GoTHousesListFragment";
 
-public class GoTListFragment extends Fragment {
-
-    private static final String TAG = "GoTListFragment";
-
-    public GoTListFragment() {
+    public GoTHousesListFragment() {
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-        final ContentLoadingProgressBar pb = rootView.findViewById(R.id.pb);
+        final ContentLoadingProgressBar contentLoadingProgressBar = rootView.findViewById(R.id.pb);
         RecyclerView recyclerView = rootView.findViewById(R.id.rv);
 
-        final GoTAdapter goTAdapter = new GoTAdapter(getActivity());
+        final GoTHouseAdapter goTHouseAdapter = new GoTHouseAdapter(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(goTAdapter);
+        recyclerView.setAdapter(goTHouseAdapter);
 
         new Thread(new Runnable() {
 
@@ -59,23 +57,38 @@ public class GoTListFragment extends Fragment {
                         response.append(inputLine);
                     }
                     bufferedReader.close();
-
                     Type listType = new TypeToken<ArrayList<GoTCharacter>>() {
                     }.getType();
                     final List<GoTCharacter> characters = new Gson().fromJson(response.toString(), listType);
-                    GoTListFragment.this.getActivity().runOnUiThread(new Runnable() {
+                    GoTHousesListFragment.this.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            goTAdapter.addAll(characters);
-                            goTAdapter.notifyDataSetChanged();
-                            pb.hide();
+                            ArrayList<GoTHouse> goTHouses = new ArrayList<>();
+                            for (int i = 0; i < characters.size(); i++) {
+                                boolean isGothouse = false;
+                                for (int j = 0; j < goTHouses.size(); j++) {
+                                    if (goTHouses.get(j).houseName.equalsIgnoreCase(characters.get(i).houseName)) {
+                                        isGothouse = true;
+                                    }
+                                }
+                                if (!isGothouse) {
+                                    if (characters.get(i).houseId != null && !characters.get(i).houseId.isEmpty()) {
+                                        GoTHouse h = new GoTHouse();
+                                        h.houseId = characters.get(i).houseId;
+                                        h.houseName = characters.get(i).houseName;
+                                        h.houseImageUrl = characters.get(i).houseImageUrl;
+                                        goTHouses.add(h);
+                                    }
+                                }
+                            }
+                            goTHouseAdapter.addAll(goTHouses);
+                            goTHouseAdapter.notifyDataSetChanged();
+                            contentLoadingProgressBar.hide();
                         }
                     });
                 } catch (IOException e) {
                     Log.e(TAG, e.getLocalizedMessage());
                 }
-
-
             }
         }).start();
         return rootView;

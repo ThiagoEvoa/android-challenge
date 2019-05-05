@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.net.URL;
 
 public class DetailActivity extends AppCompatActivity {
-
-
     private static final String TAG = "DetailActivity";
 
     @Override
@@ -22,16 +20,16 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        final ImageView ivp = (ImageView) findViewById(R.id.iv_photo);
-        final TextView tvn = (TextView) findViewById(R.id.tv_name);
-        final TextView tvd = (TextView) findViewById(R.id.tv_description);
+        final ImageView imageView = findViewById(R.id.iv_photo);
+        final TextView textViewName = findViewById(R.id.tv_name);
+        final TextView textViewDescription = findViewById(R.id.tv_description);
 
-        final String d = getIntent().getStringExtra("description");
-        final String n = getIntent().getStringExtra("name");
-        final String i = getIntent().getStringExtra("imageUrl");
+        final String description = getIntent().getStringExtra("description");
+        final String name = getIntent().getStringExtra("name");
+        final String imageUrl = getIntent().getStringExtra("imageUrl");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.t);
-        toolbar.setTitle(n);
+        Toolbar toolbar = findViewById(R.id.t);
+        toolbar.setTitle(name);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -40,16 +38,16 @@ public class DetailActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                URL url = null;
+                URL url;
                 try {
-                    url = new URL(i);
-                    final Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    url = new URL(imageUrl);
+                    final Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                     DetailActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ivp.setImageBitmap(bmp);
-                            tvn.setText(n);
-                            tvd.setText(d);
+                            imageView.setImageBitmap(bitmap);
+                            textViewName.setText(name);
+                            textViewDescription.setText(description);
                         }
                     });
                 } catch (IOException e) {

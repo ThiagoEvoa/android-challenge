@@ -8,40 +8,33 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 /**
  * Created by Admin on 15/12/2016.
  */
 
 public class GoTListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    static GoTListFragment.ListType type;
-    Context context;
+    private static ListType type;
+    private Context context;
 
-   // private final List<GoTCharacter> gcs;
-
-    public GoTListAdapter(GoTListFragment.ListType type, Context context){
-        this.type = type;
+    public GoTListAdapter(ListType type, Context context) {
+        GoTListAdapter.type = type;
         this.context = context;
-        //gcs = new List<GoTCharacter>();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-      if (viewType == 1) {
-            View itemView = LayoutInflater.from (parent.getContext()).
-                    inflate (R.layout.got_character_row, parent, false);
+        if (viewType == 1) {
+            View itemView = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.got_character_row, parent, false);
 
-          GotCharacterViewHolder vh = new GotCharacterViewHolder (itemView);
-            return vh;
-        }
-        else {
-            View itemView = LayoutInflater.from (parent.getContext()).
-                    inflate (R.layout.got_house_row, parent, false);
+            GotCharacterViewHolder gotCharacterViewHolder = new GotCharacterViewHolder(itemView);
+            return gotCharacterViewHolder;
+        } else {
+            View itemView = LayoutInflater.from(parent.getContext()).
+                    inflate(R.layout.got_house_row, parent, false);
 
-          GotHouseViewHolder vh = new GotHouseViewHolder (itemView);
-            return vh;
+            return new GotHouseViewHolder(itemView);
         }
     }
 
@@ -57,30 +50,30 @@ public class GoTListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        return (type == GoTListFragment.ListType.Characters) ? 1 : 0;
+        return (type == ListType.Characters) ? 1 : 0;
     }
 
     class GotCharacterViewHolder extends RecyclerView.ViewHolder {
 
         private static final String TAG = "GotCharacterViewHolder";
-        ImageView imp;
-        TextView tvn;
+        ImageView imageView;
+        TextView textViewName;
 
-        public GotCharacterViewHolder(View itemView) {
+        GotCharacterViewHolder(View itemView) {
             super(itemView);
-            imp = (ImageView) itemView.findViewById(R.id.ivBackground);
-            tvn = (TextView) itemView.findViewById(R.id.tv_name);
+            imageView = itemView.findViewById(R.id.ivBackground);
+            textViewName = itemView.findViewById(R.id.tv_name);
         }
     }
 
     class GotHouseViewHolder extends RecyclerView.ViewHolder {
 
         private static final String TAG = "GotCharacterViewHolder";
-        ImageView imp;
+        ImageView imageView;
 
-        public GotHouseViewHolder(View itemView) {
+        GotHouseViewHolder(View itemView) {
             super(itemView);
-            imp = (ImageView) itemView.findViewById(R.id.ivBackground);
+            imageView = itemView.findViewById(R.id.ivBackground);
         }
     }
 }
