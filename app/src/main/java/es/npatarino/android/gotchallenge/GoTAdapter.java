@@ -68,13 +68,13 @@ class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return goTCharacters.size();
     }
 
-    public void filter(String text){
+    void filter(String text) {
         goTCharacters.clear();
-        if(text.isEmpty()){
+        if (text.isEmpty()) {
             goTCharacters.addAll(goTCharactersCopy);
-        }else{
-            for(GoTCharacter character: goTCharactersCopy){
-                if(character.name.equals(text)){
+        } else {
+            for (GoTCharacter character : goTCharactersCopy) {
+                if (character.name.equals(text)) {
                     goTCharacters.add(character);
                 }
             }
