@@ -8,5 +8,6 @@
 
     <string name="tab_character">Characters</string>
     <string name="tab_house">Houses</string>
+    <string name="action_search">Search</string>
 
 </resources>

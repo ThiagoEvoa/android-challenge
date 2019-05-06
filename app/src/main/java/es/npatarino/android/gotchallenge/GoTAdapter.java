@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,16 +26,19 @@ import static es.npatarino.android.gotchallenge.Constants.BUNDLE_NAME;
 class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<GoTCharacter> goTCharacters;
+    private List<GoTCharacter> goTCharactersCopy;
     private Activity activity;
 
     GoTAdapter(Activity activity) {
         this.goTCharacters = new ArrayList<>();
+        this.goTCharactersCopy = new ArrayList<>();
         this.activity = activity;
     }
 
     void addAll(Collection<GoTCharacter> collection) {
         for (int i = 0; i < collection.size(); i++) {
             goTCharacters.add((GoTCharacter) collection.toArray()[i]);
+            goTCharactersCopy.add((GoTCharacter) collection.toArray()[i]);
         }
     }
 
@@ -62,6 +66,20 @@ class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemCount() {
         return goTCharacters.size();
+    }
+
+    public void filter(String text){
+        goTCharacters.clear();
+        if(text.isEmpty()){
+            goTCharacters.addAll(goTCharactersCopy);
+        }else{
+            for(GoTCharacter character: goTCharactersCopy){
+                if(character.name.equals(text)){
+                    goTCharacters.add(character);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     class GotCharacterViewHolder extends RecyclerView.ViewHolder {
